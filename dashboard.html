@@ -308,7 +308,7 @@ function renderPendings(containerId, data){
         <div class="font-bold text-[#8C0D11]">
 
           Debe:
-          ${item.price * item.quantity}
+          $${item.price * item.quantity}
 
         </div>
 
@@ -453,11 +453,19 @@ async function cargarDashboard(){
 
   let merchTotal = 0;
 
+  
   let tablitas = 0;
   let sticker = 0;
   let poster = 0;
   let origami = 0;
   let dibujo = 0;
+
+  let raspadosTotal = 0;
+
+  let ciruela = 0;
+  let durazno = 0;
+  let vainilla = 0;
+  let diablito = 0;
 
   data.forEach(v => {
 
@@ -479,6 +487,24 @@ async function cargarDashboard(){
 
       if(v.producto === "Dibujo")
       dibujo += v.cantidad;
+
+      if(v.stand === "raspados"){
+
+    raspadosTotal += Number(v.total);
+
+     if(v.producto === "Ciruela")
+    ciruela += v.cantidad;
+
+    if(v.producto === "Durazno")
+    durazno += v.cantidad;
+
+    if(v.producto === "Vainilla")
+    vainilla += v.cantidad;
+
+    if(v.producto === "Diablito")
+    diablito += v.cantidad;
+
+}
 
     }
 
