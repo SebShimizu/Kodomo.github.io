@@ -237,17 +237,6 @@
 </div>
 
 <script>
-const supabaseUrl =
-'https://ktvneighjktwjffjefbh.supabase.co';
-
-const supabaseKey =
-'sb_publishable_aOvjgc-i2PXwvO9ISBg0TA_dizK34ZQ';
-
-const supabaseClient =
-supabase.createClient(
-  supabaseUrl,
-  supabaseKey
-);
 
 async function cargarVentas(){
 
@@ -432,7 +421,101 @@ setInterval(
   loadDashboard,
   1000
 );
+const supabaseUrl =
+'https://ktvneighjktwjffjefbh.supabase.co';
 
+const supabaseKey =
+'sb_publishable_aOvjgc-i2PXwvO9ISBg0TA_dizK34ZQ';
+
+const supabaseClient =
+supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+async function cargarDashboard(){
+
+  const { data, error } =
+
+  await supabaseClient
+
+  .from("ventas")
+
+  .select("*");
+
+  if(error){
+
+    console.log(error);
+
+    return;
+
+  }
+
+  let merchTotal = 0;
+
+  let tablitas = 0;
+  let sticker = 0;
+  let poster = 0;
+  let origami = 0;
+  let dibujo = 0;
+
+  data.forEach(v => {
+
+    if(v.stand === "merch"){
+
+      merchTotal += Number(v.total);
+
+      if(v.producto === "Tablitas")
+      tablitas += v.cantidad;
+
+      if(v.producto === "Sticker")
+      sticker += v.cantidad;
+
+      if(v.producto === "Poster")
+      poster += v.cantidad;
+
+      if(v.producto === "Origami")
+      origami += v.cantidad;
+
+      if(v.producto === "Dibujo")
+      dibujo += v.cantidad;
+
+    }
+
+  });
+
+  document.getElementById(
+    "tablitas"
+  ).innerText = tablitas;
+
+  document.getElementById(
+    "sticker"
+  ).innerText = sticker;
+
+  document.getElementById(
+    "poster"
+  ).innerText = poster;
+
+  document.getElementById(
+    "origami"
+  ).innerText = origami;
+
+  document.getElementById(
+    "dibujo"
+  ).innerText = dibujo;
+
+  document.getElementById(
+    "merchTotal"
+  ).innerText = "$" + merchTotal;
+
+}
+
+cargarDashboard();
+
+setInterval(
+  cargarDashboard,
+  2000
+);
 </script>
 
 </body>
