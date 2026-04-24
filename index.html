@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Login</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body class="bg-[#FFFFEB] min-h-screen flex items-center justify-center">
+
+<div class="bg-white p-10 rounded-3xl shadow-2xl w-[400px]">
+
+<h1 class="text-4xl font-black text-center text-[#6C1411] mb-8">
+
+OJN Sinaloa
+
+</h1>
+
+<input
+
+id="usuario"
+
+type="text"
+
+placeholder="Usuario"
+
+class="w-full border p-4 rounded-2xl mb-4">
+
+<input
+
+id="password"
+
+type="password"
+
+placeholder="Contraseña"
+
+class="w-full border p-4 rounded-2xl mb-4">
+
+<button
+
+id="btnLogin"
+
+class="w-full bg-[#C11111] text-white p-4 rounded-2xl font-black">
+
+Ingresar
+
+</button>
+
+<p
+id="error"
+
+class="hidden mt-4 text-red-600 text-center font-bold">
+
+</p>
+
+</div>
+
+<script>
+
+const supabaseUrl =
+'https://ktvneighjktwjffjefbh.supabase.co';
+
+const supabaseKey =
+'sb_publishable_aOvjgc-i2PXwvO9ISBg0TA_dizK34ZQ';
+
+const supabaseClient =
+supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+document
+.getElementById('btnLogin')
+
+.addEventListener(
+'click',
+login
+);
+
+async function login(){
+
+const usuario =
+document
+.getElementById(
+'usuario'
+)
+
+.value
+.trim();
+
+const password =
+document
+.getElementById(
+'password'
+)
+
+.value
+.trim();
+
+const { data, error } =
+await supabaseClient
+
+.from('usuarios')
+
+.select('*')
+
+.eq('usuario', usuario)
+
+.eq('password', password);
+
+console.log(data);
+console.log(error);
+
+if(error){
+
+mostrarError(
+'Error conexión'
+);
+
+return;
+
+}
+
+if(data.length === 0){
+
+mostrarError(
+'Credenciales incorrectas'
+);
+
+return;
+
+}
+
+localStorage.setItem(
+
+'usuarioActual',
+
+JSON.stringify(data[0])
+
+);
+
+window.location.href =
+'menu.html';
+
+}
+
+function mostrarError(msg){
+
+const error =
+document.getElementById(
+'error'
+);
+
+error.innerText = msg;
+
+error.classList.remove(
+'hidden'
+);
+
+}
+
+</script>
+
+</body>
+</html>
