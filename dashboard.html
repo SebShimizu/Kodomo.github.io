@@ -237,7 +237,48 @@
 </div>
 
 <script>
+const usuario = JSON.parse(
 
+  localStorage.getItem(
+    "usuarioActual"
+  )
+
+);
+
+if(!usuario){
+
+  window.location.href =
+    "index.html";
+
+}
+
+const permitidos = [
+
+  "sebastian",
+  "joseph",
+  "usuario3",
+  "usuario4",
+  "usuario5",
+  "usuario6"
+
+];
+
+if(
+
+  !permitidos.includes(
+    usuario.usuario
+  )
+
+){
+
+  alert(
+    "Sin acceso al dashboard"
+  );
+
+  window.location.href =
+    "menu.html";
+
+}
 const supabaseUrl =
 'https://ktvneighjktwjffjefbh.supabase.co';
 
