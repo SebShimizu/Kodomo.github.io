@@ -692,7 +692,10 @@ function resetSales(){
 
 loadData();
 loadPendings();
-
+window.addEventListener(
+  "focus",
+  loadPendings
+);
 setInterval(
   loadPendings,
   2000
