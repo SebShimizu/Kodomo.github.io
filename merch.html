@@ -373,8 +373,6 @@ const counts = {
 
 };
 
-let pendingSales = [];
-
 async function addSale(product, price){
 
   counts[product]++;
@@ -710,8 +708,7 @@ function saveData(){
     JSON.stringify({
 
       counts,
-      total,
-      pendingSales
+      total
 
     })
 
@@ -738,8 +735,7 @@ function loadData(){
   total =
     data.total || 0;
 
-  pendingSales =
-    data.pendingSales || [];
+
 
   updateUI();
 
