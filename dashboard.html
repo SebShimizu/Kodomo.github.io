@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <meta charset="UTF-8">
 
   <meta
@@ -237,6 +237,33 @@
 </div>
 
 <script>
+const supabaseUrl =
+'https://ktvneighjktwjffjefbh.supabase.co';
+
+const supabaseKey =
+'sb_publishable_aOvjgc-i2PXwvO9ISBg0TA_dizK34ZQ';
+
+const supabaseClient =
+supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+async function cargarVentas(){
+
+  const { data, error } =
+
+  await supabaseClient
+
+  .from("ventas")
+
+  .select("*");
+
+  console.log(data);
+
+}
+
+cargarVentas();
 
 function renderPendings(containerId, data){
 
