@@ -238,189 +238,6 @@
 
 <script>
 
-async function cargarVentas(){
-
-  const { data, error } =
-
-  await supabaseClient
-
-  .from("ventas")
-
-  .select("*");
-
-  console.log(data);
-
-}
-
-cargarVentas();
-
-function renderPendings(containerId, data){
-
-  const container =
-    document.getElementById(containerId);
-
-  container.innerHTML = '';
-
-  if(
-    !data.pendingSales ||
-    data.pendingSales.length === 0
-  ){
-
-    container.innerHTML = `
-
-      <div class="text-gray-500">
-
-        Sin pendientes
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  data.pendingSales.forEach(item => {
-
-    container.innerHTML += `
-
-      <div class="bg-[#FFF4F4] border-l-8 border-[#C11111] p-4 rounded-3xl">
-
-        <div class="font-black text-xl">
-
-          ${item.product}
-
-        </div>
-
-        <div>
-
-          Cliente:
-          <strong>${item.client}</strong>
-
-        </div>
-
-        <div>
-
-          Cantidad:
-          ${item.quantity}
-
-        </div>
-
-        <div class="font-bold text-[#8C0D11]">
-
-          Debe:
-          $${item.price * item.quantity}
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-function loadDashboard(){
-
-  const raspados =
-    JSON.parse(
-      localStorage.getItem(
-        'raspadosPOS'
-      )
-    );
-
-  const merch =
-    JSON.parse(
-      localStorage.getItem(
-        'merchPOS'
-      )
-    );
-
-  let raspadosTotal = 0;
-  let merchTotal = 0;
-
-  // RASPADOS
-
-  if(raspados){
-
-    document.getElementById('ciruela').innerText =
-      raspados.counts.Ciruela || 0;
-
-    document.getElementById('durazno').innerText =
-      raspados.counts.Durazno || 0;
-
-    document.getElementById('vainilla').innerText =
-      raspados.counts.Vainilla || 0;
-
-    document.getElementById('diablito').innerText =
-      raspados.counts.Diablito || 0;
-
-    raspadosTotal =
-      raspados.total || 0;
-
-    document.getElementById(
-      'raspadosTotal'
-    ).innerText =
-      raspadosTotal;
-
-    renderPendings(
-      'raspadosPendientes',
-      raspados
-    );
-
-  }
-
-  // MERCH
-
-  if(merch){
-
-    document.getElementById('tablitas').innerText =
-      merch.counts.Tablitas || 0;
-
-    document.getElementById('sticker').innerText =
-      merch.counts.Sticker || 0;
-
-    document.getElementById('poster').innerText =
-      merch.counts.Poster || 0;
-
-    document.getElementById('origami').innerText =
-      merch.counts.Origami || 0;
-
-    document.getElementById('dibujo').innerText =
-      merch.counts.Dibujo || 0;
-
-    merchTotal =
-      merch.total || 0;
-
-    document.getElementById(
-      'merchTotal'
-    ).innerText =
-      merchTotal;
-
-    renderPendings(
-      'merchPendientes',
-      merch
-    );
-
-  }
-
-  // TOTAL GENERAL
-
-  document.getElementById(
-    'grandTotal'
-  ).innerText =
-
-    raspadosTotal +
-    merchTotal;
-
-}
-
-loadDashboard();
-
-setInterval(
-  loadDashboard,
-  1000
-);
 const supabaseUrl =
 'https://ktvneighjktwjffjefbh.supabase.co';
 
@@ -434,6 +251,8 @@ supabase.createClient(
 );
 
 async function cargarDashboard(){
+
+  // VENTAS
 
   const { data, error } =
 
@@ -452,15 +271,13 @@ async function cargarDashboard(){
   }
 
   let merchTotal = 0;
+  let raspadosTotal = 0;
 
-  
   let tablitas = 0;
   let sticker = 0;
   let poster = 0;
   let origami = 0;
   let dibujo = 0;
-
-  let raspadosTotal = 0;
 
   let ciruela = 0;
   let durazno = 0;
@@ -469,50 +286,52 @@ async function cargarDashboard(){
 
   data.forEach(v => {
 
-  // MERCH
+    // MERCH
 
-  if(v.stand === "merch"){
+    if(v.stand === "merch"){
 
-    merchTotal += Number(v.total);
+      merchTotal += Number(v.total);
 
-    if(v.producto === "Tablitas")
-    tablitas += v.cantidad;
+      if(v.producto === "Tablitas")
+      tablitas += v.cantidad;
 
-    if(v.producto === "Sticker")
-    sticker += v.cantidad;
+      if(v.producto === "Sticker")
+      sticker += v.cantidad;
 
-    if(v.producto === "Poster")
-    poster += v.cantidad;
+      if(v.producto === "Poster")
+      poster += v.cantidad;
 
-    if(v.producto === "Origami")
-    origami += v.cantidad;
+      if(v.producto === "Origami")
+      origami += v.cantidad;
 
-    if(v.producto === "Dibujo")
-    dibujo += v.cantidad;
+      if(v.producto === "Dibujo")
+      dibujo += v.cantidad;
 
-  }
+    }
 
-  // RASPADOS
+    // RASPADOS
 
-  if(v.stand === "raspados"){
+    if(v.stand === "raspados"){
 
-    raspadosTotal += Number(v.total);
+      raspadosTotal += Number(v.total);
 
-    if(v.producto === "Ciruela")
-    ciruela += v.cantidad;
+      if(v.producto === "Ciruela")
+      ciruela += v.cantidad;
 
-    if(v.producto === "Durazno")
-    durazno += v.cantidad;
+      if(v.producto === "Durazno")
+      durazno += v.cantidad;
 
-    if(v.producto === "Vainilla")
-    vainilla += v.cantidad;
+      if(v.producto === "Vainilla")
+      vainilla += v.cantidad;
 
-    if(v.producto === "Diablito")
-    diablito += v.cantidad;
+      if(v.producto === "Diablito")
+      diablito += v.cantidad;
 
-  }
+    }
 
-});
+  });
+
+  // MERCH UI
 
   document.getElementById(
     "tablitas"
@@ -537,26 +356,126 @@ async function cargarDashboard(){
   document.getElementById(
     "merchTotal"
   ).innerText = merchTotal;
-  
+
+  // RASPADOS UI
+
   document.getElementById(
-  "ciruela"
+    "ciruela"
   ).innerText = ciruela;
 
   document.getElementById(
-  "durazno"
+    "durazno"
   ).innerText = durazno;
 
   document.getElementById(
-  "vainilla"
+    "vainilla"
   ).innerText = vainilla;
 
   document.getElementById(
-  "diablito"
+    "diablito"
   ).innerText = diablito;
 
   document.getElementById(
-  "raspadosTotal"
+    "raspadosTotal"
   ).innerText = raspadosTotal;
+
+  // TOTAL GENERAL
+
+  document.getElementById(
+    "grandTotal"
+  ).innerText =
+
+    merchTotal +
+    raspadosTotal;
+
+  // PENDIENTES
+
+  const { data: pendientes } =
+
+  await supabaseClient
+
+  .from("pendientes")
+
+  .select("*");
+
+  const raspadosContainer =
+
+  document.getElementById(
+    "raspadosPendientes"
+  );
+
+  const merchContainer =
+
+  document.getElementById(
+    "merchPendientes"
+  );
+
+  raspadosContainer.innerHTML = "";
+  merchContainer.innerHTML = "";
+
+  if(pendientes.length === 0){
+
+    raspadosContainer.innerHTML =
+      "Sin pendientes";
+
+    merchContainer.innerHTML =
+      "Sin pendientes";
+
+  }
+
+  pendientes.forEach(p => {
+
+    const html = `
+
+      <div class="bg-[#FFF4F4] border-l-8 border-[#C11111] p-4 rounded-3xl">
+
+        <div class="font-black text-xl">
+
+          ${p.producto}
+
+        </div>
+
+        <div>
+
+          Cliente:
+          <strong>${p.cliente}</strong>
+
+        </div>
+
+        <div>
+
+          Cantidad:
+          ${p.cantidad}
+
+        </div>
+
+        <div class="font-bold text-[#8C0D11]">
+
+          Debe:
+          $${p.precio * p.cantidad}
+
+        </div>
+
+      </div>
+
+    `;
+
+    if(p.stand === "raspados"){
+
+      raspadosContainer.innerHTML +=
+        html;
+
+    }
+
+    if(p.stand === "merch"){
+
+      merchContainer.innerHTML +=
+        html;
+
+    }
+
+  });
+
 }
 
 cargarDashboard();
@@ -565,7 +484,9 @@ setInterval(
   cargarDashboard,
   2000
 );
+
 </script>
+
 
 </body>
 </html>
