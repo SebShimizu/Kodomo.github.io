@@ -469,30 +469,36 @@ async function cargarDashboard(){
 
   data.forEach(v => {
 
-    if(v.stand === "merch"){
+  // MERCH
 
-      merchTotal += Number(v.total);
+  if(v.stand === "merch"){
 
-      if(v.producto === "Tablitas")
-      tablitas += v.cantidad;
+    merchTotal += Number(v.total);
 
-      if(v.producto === "Sticker")
-      sticker += v.cantidad;
+    if(v.producto === "Tablitas")
+    tablitas += v.cantidad;
 
-      if(v.producto === "Poster")
-      poster += v.cantidad;
+    if(v.producto === "Sticker")
+    sticker += v.cantidad;
 
-      if(v.producto === "Origami")
-      origami += v.cantidad;
+    if(v.producto === "Poster")
+    poster += v.cantidad;
 
-      if(v.producto === "Dibujo")
-      dibujo += v.cantidad;
+    if(v.producto === "Origami")
+    origami += v.cantidad;
 
-      if(v.stand === "raspados"){
+    if(v.producto === "Dibujo")
+    dibujo += v.cantidad;
+
+  }
+
+  // RASPADOS
+
+  if(v.stand === "raspados"){
 
     raspadosTotal += Number(v.total);
 
-     if(v.producto === "Ciruela")
+    if(v.producto === "Ciruela")
     ciruela += v.cantidad;
 
     if(v.producto === "Durazno")
@@ -504,11 +510,9 @@ async function cargarDashboard(){
     if(v.producto === "Diablito")
     diablito += v.cantidad;
 
-}
+  }
 
-    }
-
-  });
+});
 
   document.getElementById(
     "tablitas"
@@ -532,8 +536,27 @@ async function cargarDashboard(){
 
   document.getElementById(
     "merchTotal"
-  ).innerText = "$" + merchTotal;
+  ).innerText = merchTotal;
+  
+  document.getElementById(
+  "ciruela"
+  ).innerText = ciruela;
 
+  document.getElementById(
+  "durazno"
+  ).innerText = durazno;
+
+  document.getElementById(
+  "vainilla"
+  ).innerText = vainilla;
+
+  document.getElementById(
+  "diablito"
+  ).innerText = diablito;
+
+  document.getElementById(
+  "raspadosTotal"
+  ).innerText = raspadosTotal;
 }
 
 cargarDashboard();
