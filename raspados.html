@@ -469,6 +469,42 @@ async function payPending(id){
 
   }
 
+  const { data } = await supabaseClient
+
+  .from("pendientes")
+
+  .select("*")
+
+  .eq("id", id)
+
+  .single();
+
+  if(!data) return;
+
+  await supabaseClient
+
+  .from("ventas")
+
+  .insert([{
+
+    usuario: usuario.usuario,
+
+    stand: "raspados",
+
+    producto: data.producto,
+
+    cantidad: data.cantidad,
+
+    precio: data.precio,
+
+    total:
+      Number(data.precio) *
+      Number(data.cantidad),
+
+    tipo: "venta"
+
+  }]);
+
   await supabaseClient
 
   .from("pendientes")
@@ -476,6 +512,8 @@ async function payPending(id){
   .delete()
 
   .eq("id", id);
+
+  loadSales();
 
   loadPendings();
 
