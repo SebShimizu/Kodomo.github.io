@@ -400,7 +400,7 @@ function removeSale(product, price){
   counts[product]--;
 
   total -= price;
-
+updateUI();
 }
 
 async function addPending(product, price){
