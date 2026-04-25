@@ -392,8 +392,6 @@ async function addSale(product, price){
 
   updateUI();
 
-  saveData();
-
   const { error } = await supabaseClient
 
   .from("ventas")
@@ -810,6 +808,7 @@ async function resetSales(){
   total = 0;
 
   updateUI();
+  loadPendings();
 
   alert(
     "Corte realizado"
