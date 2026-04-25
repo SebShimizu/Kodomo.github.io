@@ -754,8 +754,9 @@ async function resetSales(){
   counts.Diablito = 0;
 
   total = 0;
-  updateUI();
-  loadPendings();
+await loadSales();
+
+loadPendings();
 
   alert(
     "Corte realizado"
