@@ -779,6 +779,54 @@ async function resetSales(){
 
   }
 
+  const { data: ventas, error: fetchError } =
+
+  await supabaseClient
+
+  .from("ventas")
+
+  .select("*")
+
+  .eq("stand", "merch")
+
+  .eq("tipo", "venta");
+
+  if(fetchError){
+
+    console.log(fetchError);
+
+    alert(
+      "Error obteniendo ventas"
+    );
+
+    return;
+
+  }
+
+  if(ventas.length > 0){
+
+    const { error: historicoError } =
+
+    await supabaseClient
+
+    .from("historico_ventas")
+
+    .insert(ventas);
+
+    if(historicoError){
+
+      console.log(historicoError);
+
+      alert(
+        "Error moviendo a histórico"
+      );
+
+      return;
+
+    }
+
+  }
+
   const { error } = await supabaseClient
 
   .from("ventas")
