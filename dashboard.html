@@ -247,7 +247,23 @@
   </div>
 
 </div>
+<!-- HISTORIAL -->
 
+<div class="bg-white/95 backdrop-blur-md rounded-[2rem] shadow-2xl p-8 mt-8 border border-[#8C0D11]/10">
+
+  <h2 class="text-3xl md:text-5xl font-black text-[#8C0D11] mb-6">
+
+    Historial de Cortes
+
+  </h2>
+
+  <div
+    id="historialVentas"
+    class="space-y-4">
+
+  </div>
+
+</div>
 <script>
 const usuario = JSON.parse(
 
@@ -349,7 +365,23 @@ async function cargarDashboard(){
   .from("ventas")
 
   .select("*");
+const {
 
+  data: historico,
+
+  error: historicoError
+
+} = await supabaseClient
+
+.from("historico_ventas")
+
+.select("*");
+
+if(historicoError){
+
+  console.log(historicoError);
+
+}
   if(error){
 
     console.log(error);
@@ -563,7 +595,63 @@ async function cargarDashboard(){
     }
 
   });
+  });
 
+  const historialContainer =
+
+  document.getElementById(
+    "historialVentas"
+  );
+
+  historialContainer.innerHTML = "";
+
+  historico.forEach(v => {
+
+    historialContainer.innerHTML += `
+
+      <div class="bg-[#FFF4F4] border-l-8 border-[#C11111] p-4 rounded-3xl">
+
+        <div class="font-black text-xl">
+
+          ${v.stand.toUpperCase()}
+
+        </div>
+
+        <div>
+
+          Producto:
+          ${v.producto}
+
+        </div>
+
+        <div>
+
+          Cantidad:
+          ${v.cantidad}
+
+        </div>
+
+        <div>
+
+          Usuario:
+          ${v.usuario}
+
+        </div>
+
+        <div class="font-bold text-[#8C0D11]">
+
+          Total:
+          $${v.total}
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
 }
 
 cargarDashboard();
