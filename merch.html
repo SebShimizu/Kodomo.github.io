@@ -807,9 +807,9 @@ async function resetSales(){
 
   total = 0;
 
-  updateUI();
-  loadPendings();
+await loadSales();
 
+loadPendings();
   alert(
     "Corte realizado"
   );
