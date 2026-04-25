@@ -713,7 +713,6 @@ async function loadPendings(){
 
 }
 
-
 async function resetSales(){
 
   const password = prompt(
@@ -734,7 +733,7 @@ async function resetSales(){
 
   .delete()
 
-  .eq("stand", "raspados")
+  .eq("stand", "merch")
 
   .eq("tipo", "venta");
 
