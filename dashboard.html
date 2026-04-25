@@ -102,6 +102,10 @@
           <span>Diablito</span>
           <span id="diablito">0</span>
         </div>
+        <div class="flex justify-between">
+          <span>Tamarindo</span>
+          <span id="tamarindo">0</span>
+        </div>
 
       </div>
 
@@ -403,6 +407,7 @@ if(historicoError){
   let durazno = 0;
   let vainilla = 0;
   let diablito = 0;
+  let tamarindo = 0;
 
   data.forEach(v => {
 
@@ -446,6 +451,9 @@ if(historicoError){
 
       if(v.producto === "Diablito")
       diablito += v.cantidad;
+
+      if(v.producto === "Tamarindo")
+      tamarindo += v.cantidad;
 
     }
 
@@ -494,6 +502,10 @@ if(historicoError){
   document.getElementById(
     "diablito"
   ).innerText = diablito;
+
+  document.getElementById(
+  "tamarindo"
+  ).innerText = tamarindo;
 
   document.getElementById(
     "raspadosTotal"
