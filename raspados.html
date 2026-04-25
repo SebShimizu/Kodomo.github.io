@@ -510,7 +510,47 @@ async function cancelPending(id){
   loadPendings();
 
 }
+async function loadSales(){
 
+  const { data, error } =
+
+  await supabaseClient
+
+  .from("ventas")
+
+  .select("*")
+
+  .eq("stand", "merch");
+
+  if(error){
+
+    console.log(error);
+
+    return;
+
+  }
+
+  counts.Tablitas = 0;
+  counts.Sticker = 0;
+  counts.Poster = 0;
+  counts.Origami = 0;
+  counts.Dibujo = 0;
+
+  total = 0;
+
+  data.forEach(v => {
+
+    counts[v.producto] +=
+      Number(v.cantidad);
+
+    total +=
+      Number(v.total);
+
+  });
+
+  updateUI();
+
+}
 function updateUI(){
 
   document.getElementById('ciruela').innerText =
@@ -702,7 +742,7 @@ function resetSales(){
   location.reload();
 }
 
-//loadData();
+loadSales();
 loadPendings();
 window.addEventListener(
   "focus",
