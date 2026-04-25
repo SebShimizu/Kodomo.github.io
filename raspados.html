@@ -346,9 +346,7 @@ async function addSale(product, price){
 
   total += price;
 
-  updateUI();
 
-  saveData();
 
   const { error } = await supabaseClient
 
@@ -403,9 +401,6 @@ function removeSale(product, price){
 
   total -= price;
 
-  updateUI();
-
-  saveData();
 }
 
 async function addPending(product, price){
@@ -548,12 +543,7 @@ async function loadSales(){
       Number(v.total);
 
   });
-
   updateUI();
-
-}
-  updateUI();
-
 }
 function updateUI(){
 
@@ -727,8 +717,6 @@ async function resetSales(){
 
   total = 0;
 
-  updateUI();
-
   loadPendings();
 
   alert(
@@ -736,6 +724,9 @@ async function resetSales(){
   );
 
 }
+loadSales();
+
+loadPendings();
 
 </script>
 
