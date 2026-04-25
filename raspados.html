@@ -685,46 +685,6 @@ async function loadPendings(){
 
 }
 
-function saveData(){
-
-  localStorage.setItem(
-
-    'raspadosPOS',
-
-    JSON.stringify({
-
-      counts,
-      total
-
-    })
-
-  );
-}
-
-function loadData(){
-
-  const data = JSON.parse(
-
-    localStorage.getItem(
-      'raspadosPOS'
-    )
-
-  );
-
-  if(!data) return;
-
-  Object.assign(
-    counts,
-    data.counts
-  );
-
-  total =
-    data.total || 0;
-
-  updateUI();
-
-  renderPending();
-}
 
 async function resetSales(){
 
