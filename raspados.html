@@ -746,7 +746,7 @@ async function resetSales(){
 
   .delete()
 
-  .eq("stand", "merch");
+  .eq("stand", "raspados");
 
   if(error){
 
@@ -760,15 +760,16 @@ async function resetSales(){
 
   }
 
-  counts.Tablitas = 0;
-  counts.Sticker = 0;
-  counts.Poster = 0;
-  counts.Origami = 0;
-  counts.Dibujo = 0;
+  counts.Ciruela = 0;
+  counts.Durazno = 0;
+  counts.Vainilla = 0;
+  counts.Diablito = 0;
 
   total = 0;
 
   updateUI();
+
+  loadPendings();
 
   alert(
     "Corte realizado"
