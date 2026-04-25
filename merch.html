@@ -796,7 +796,7 @@ function loadData(){
   renderPending();
 }
 
-function resetSales(){
+async function resetSales(){
 
   const password = prompt(
     "Contraseña para reiniciar:"
@@ -807,25 +807,44 @@ function resetSales(){
     alert("Contraseña incorrecta");
 
     return;
+
   }
 
-  localStorage.removeItem(
-    'merchPOS'
+  const { error } = await supabaseClient
+
+  .from("ventas")
+
+  .delete()
+
+  .eq("stand", "merch");
+
+  if(error){
+
+    console.log(error);
+
+    alert(
+      "Error reiniciando"
+    );
+
+    return;
+
+  }
+
+  counts.Tablitas = 0;
+  counts.Sticker = 0;
+  counts.Poster = 0;
+  counts.Origami = 0;
+  counts.Dibujo = 0;
+
+  total = 0;
+
+  updateUI();
+
+  alert(
+    "Corte realizado"
   );
 
-  location.reload();
 }
-
-loadSales();
-loadPendings();
-window.addEventListener(
-  "focus",
-  loadPendings
-);
-setInterval(
-  loadPendings,
-  2000
-);
 </script>
 
 </body>
