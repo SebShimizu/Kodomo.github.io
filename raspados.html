@@ -763,15 +763,15 @@ async function resetSales(){
 
     if(historicoError){
 
-      console.log(historicoError);
+  console.log(historicoError);
 
-      alert(
-        "Error moviendo a histórico"
-      );
+  alert(
+    historicoError.message
+  );
 
-      return;
+  return;
 
-    }
+}
 
   }
 
