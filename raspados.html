@@ -520,7 +520,9 @@ async function loadSales(){
 
   .select("*")
 
-  .eq("stand", "merch");
+  .eq("stand", "raspados")
+
+  .eq("tipo", "venta");
 
   if(error){
 
@@ -530,11 +532,10 @@ async function loadSales(){
 
   }
 
-  counts.Tablitas = 0;
-  counts.Sticker = 0;
-  counts.Poster = 0;
-  counts.Origami = 0;
-  counts.Dibujo = 0;
+  counts.Ciruela = 0;
+  counts.Durazno = 0;
+  counts.Vainilla = 0;
+  counts.Diablito = 0;
 
   total = 0;
 
@@ -548,6 +549,9 @@ async function loadSales(){
 
   });
 
+  updateUI();
+
+}
   updateUI();
 
 }
