@@ -785,7 +785,9 @@ async function resetSales(){
 
   .delete()
 
-  .eq("stand", "merch");
+  .eq("stand", "merch")
+
+  .eq("tipo", "venta");
 
   if(error){
 
@@ -799,17 +801,10 @@ async function resetSales(){
 
   }
 
-  counts.Tablitas = 0;
-  counts.Sticker = 0;
-  counts.Poster = 0;
-  counts.Origami = 0;
-  counts.Dibujo = 0;
+  await loadSales();
 
-  total = 0;
+  loadPendings();
 
-await loadSales();
-
-loadPendings();
   alert(
     "Corte realizado"
   );
