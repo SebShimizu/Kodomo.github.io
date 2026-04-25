@@ -598,60 +598,110 @@ if(historicoError){
 
   const historialContainer =
 
-  document.getElementById(
-    "historialVentas"
-  );
+document.getElementById(
+  "historialVentas"
+);
 
-  historialContainer.innerHTML = "";
+let totalHistorico = 0;
 
-  historico.forEach(v => {
+historialContainer.innerHTML = `
 
-    historialContainer.innerHTML += `
+  <div class="overflow-x-auto">
 
-      <div class="bg-[#FFF4F4] border-l-8 border-[#C11111] p-4 rounded-3xl">
+    <table class="w-full text-left border-collapse">
 
-        <div class="font-black text-xl">
+      <thead>
 
-          ${v.stand.toUpperCase()}
+        <tr class="bg-[#8C0D11] text-white">
 
-        </div>
+          <th class="p-3">Stand</th>
 
-        <div>
+          <th class="p-3">Producto</th>
 
-          Producto:
-          ${v.producto}
+          <th class="p-3">Cantidad</th>
 
-        </div>
+          <th class="p-3">Usuario</th>
 
-        <div>
+          <th class="p-3">Total</th>
 
-          Cantidad:
-          ${v.cantidad}
+        </tr>
 
-        </div>
+      </thead>
 
-        <div>
+      <tbody id="historialBody">
 
-          Usuario:
-          ${v.usuario}
+      </tbody>
 
-        </div>
+    </table>
 
-        <div class="font-bold text-[#8C0D11]">
+  </div>
 
-          Total:
-          $${v.total}
+`;
 
-        </div>
+const body = document.getElementById(
+  "historialBody"
+);
 
-      </div>
+historico.forEach(v => {
 
-    `;
+  totalHistorico +=
+    Number(v.total);
 
-  });
+  body.innerHTML += `
 
+    <tr class="border-b">
+
+      <td class="p-3">
+
+        ${v.stand}
+
+      </td>
+
+      <td class="p-3">
+
+        ${v.producto}
+
+      </td>
+
+      <td class="p-3">
+
+        ${v.cantidad}
+
+      </td>
+
+      <td class="p-3">
+
+        ${v.usuario}
+
+      </td>
+
+      <td class="p-3 font-bold text-[#8C0D11]">
+
+        $${v.total}
+
+      </td>
+
+    </tr>
+
+  `;
+
+});
+
+historialContainer.innerHTML += `
+
+  <div class="bg-[#363334] text-white rounded-3xl p-5 mt-6 text-right">
+
+    <span class="text-2xl font-black">
+
+      Total Histórico:
+      $${totalHistorico}
+
+    </span>
+
+  </div>
+
+`;
 }
-
 cargarDashboard();
 
 setInterval(
