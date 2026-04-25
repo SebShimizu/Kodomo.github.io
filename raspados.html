@@ -734,7 +734,9 @@ async function resetSales(){
 
   .delete()
 
-  .eq("stand", "raspados");
+  .eq("stand", "raspados")
+
+  .eq("tipo", "venta");
 
   if(error){
 
@@ -748,15 +750,9 @@ async function resetSales(){
 
   }
 
-  counts.Ciruela = 0;
-  counts.Durazno = 0;
-  counts.Vainilla = 0;
-  counts.Diablito = 0;
+  await loadSales();
 
-  total = 0;
-await loadSales();
-
-loadPendings();
+  loadPendings();
 
   alert(
     "Corte realizado"
